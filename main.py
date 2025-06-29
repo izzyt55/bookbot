@@ -10,13 +10,30 @@ def get_book_text(filepath):
 def main():
     book_contents = get_book_text("books/frankenstein.txt")
     total_words = count_number_of_words(book_contents)
-
-    print(f"{total_words} words found in the document")
-
     total_characters = num_of_characters(book_contents)
-    print(total_characters)
 
-    sorted_total_characters = total_characters.sort(reverse=True, key=sorted_list(total_characters))
-    print(sorted_total_characters)
+    def sort_on(items):
+        return items["sum"]
+
+    sorted_total_characters = sorted_list(total_characters)
+    sorted_total_characters.sort(reverse=True, key=sort_on)
+
+    def report():
+        
+        count = 0
+        for item in sorted_total_characters:
+            for key in item:
+                if item['char'].isalpha():
+                    print(f"{item['char']}: {item['sum']}")
+                    count += 1
+
+    
+    print("========= BOOKBOT =========\n"
+    "Analyzing book found at books/frankenstein.txt...\n" \
+        "----- Word Count -----")
+    print(f"Found {total_words} total words")
+    print("----- Character Count -----")
+    print(report())
+    print("========== END ==========")
 
 main()
